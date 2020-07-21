@@ -6,10 +6,12 @@ c = 299792458
 ########################################################################
 cwd = os.getcwd() # Get the present directory
 folder = cwd.split('/')[-1] # Last part of cwd is folder name
-# name folder like 1_0_3, or 01_00_03
-#dir_sc = int(folder.split('_')[0]) # First number is sc flag
-#indir_sc = int(folder.split('_')[1]) # Second number is indirect sc flag
-#case = int(folder.split('_')[2]) # Last number is case flag
+
+# name folder like: SC_Voltage_Case
+# e.g. 1_80_2
+sc_flag = int(folder.split('_')[0]) # First number is sc flag
+voltage= int(folder.split('_')[1]) # Second number is indirect sc flag
+voltage_case = int(folder.split('_')[2]) # Last number is case flag
 
 parameters = {}
 
@@ -19,7 +21,6 @@ parameters['tunex']             = '614'
 parameters['tuney']             = '635'
 
 # Currently use BLonD generated longitudinal distribution
-parameters['BLonD_file'] = 'BLonD_Longitudinal_Distn_TOF_80kV.npz'
 
 parameters['n_macroparticles']  = int(1E4)      # Simulated macroparticles
 parameters['intensity']	        = 700E10        # Protons in bunch
@@ -30,13 +31,11 @@ parameters['blength']		= 220E-9        # 4 sigma
 parameters['eps_z']		= 2.6           # 2.6 eVs
 parameters['dpp_rms']		= 1.7e-03
 
+parameters['phi_s']			= 0
+
 parameters['LongitudinalJohoParameter'] = 1.2
 parameters['LongitudinalCut'] 	        = 2.4
 parameters['TransverseCut']		= 5
-
-parameters['rf_voltage']		= 0.080
-parameters['phi_s']			= 0
-
 
 parameters['circumference']		= 2*np.pi*100
 
@@ -59,8 +58,9 @@ tu.append(2185)# WS 175s
 parameters['turns_print'] = tu
 parameters['turns_update'] = tu
 
+# switches
+#--------------------------------------------------------------------
 switches = {
-        'Direct_Space_Charge':          True,
         'Indirect_Space_Charge':        False,
 	'Print_SC_Grid':	        False,
 	'CreateDistn':		        True,
@@ -69,12 +69,47 @@ switches = {
 	'GridSizeY': 64, #128, #206
 	'GridSizeZ': 32 #64
 }
-
 parameters['Space_Charge_GridSizeX'] = switches['GridSizeX']
 parameters['Space_Charge_GridSizeY'] = switches['GridSizeY']
 parameters['Space_Charge_GridSizeZ'] = switches['GridSizeZ']
 
+if sc_flag:
+        switches['Direct_Space_Charge'] = True
+else:
+        switches['Direct_Space_Charge'] = False
+        
+print 'simulation_parameters::switches[\'Direct_Space_Charge\'] = ', switches['Direct_Space_Charge'] 
+
+# Voltage cases
+#--------------------------------------------------------------------
+if voltage == 70:
+        parameters['BLonD_file'] = 'BLonD_Longitudinal_Distn_TOF_70kV.npz'
+        if voltage_case == 0:   parameters['rf_voltage'] = 0.070                
+        elif voltage_case == 1: parameters['rf_voltage'] = 0.071                 
+        elif voltage_case == 2: parameters['rf_voltage'] = 0.069         
+        else: 
+                print 'simulation_parameters::Error: Voltage case specified in simulation folder name not allowed'
+                exit(0)
+        
+elif voltage == 85:
+        parameters['BLonD_file'] = 'BLonD_Longitudinal_Distn_TOF_85kV.npz'
+        if voltage_case == 0:   parameters['rf_voltage'] = 0.085              
+        elif voltage_case == 1: parameters['rf_voltage'] = 0.086    
+        elif voltage_case == 2: parameters['rf_voltage'] = 0.084    
+        else: 
+                print 'simulation_parameters::Error: Voltage case specified in simulation folder name not allowed'
+                exit(0)
+        
+else:
+        print 'simulation_parameters::Error: Voltage specified in simulation folder name not allowed'
+        print 'Please select either 70 or 85 kV'
+        exit(0)
+        
+print 'simulation_parameters::parameters[\'rf_voltage\'] = ', parameters['rf_voltage']
+
+
 # PTC RF Table Parameters
+#--------------------------------------------------------------------
 harmonic_factors = [1] # this times the base harmonic defines the RF harmonics (for SPS = 4620, PS 10MHz 7, 8, or 9)
 time = np.array([0,1,2])
 ones = np.ones_like(time)

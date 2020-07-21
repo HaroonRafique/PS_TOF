@@ -24,18 +24,15 @@ queue = 'inf-short'
 
 cwd = os.getcwd() # Get the present directory
 folder = cwd.split('/')[-1] # Last part of cwd is folder name
-# name folder like 1_0_3, or 01_00_03
-dir_sc = int(folder.split('_')[0]) # First number is sc flag
-indir_sc = int(folder.split('_')[1]) # Second number is indirect sc flag
-case = int(folder.split('_')[2]) # Last number is case flag
 
-if dir_sc:
-        n_nodes = 4
-if indir_sc:
-        n_nodes = 6
-        queue = 'inf-long'
+# name folder like: SC_Voltage_Case
+# e.g. 1_80_2
+sc_flag = int(folder.split('_')[0]) # First number is sc flag
+voltage= int(folder.split('_')[1]) # Second number is indirect sc flag
+voltage_case = int(folder.split('_')[2]) # Last number is case flag
 
-jobname = '18_'+str(case)+'_'+str(dir_sc)+'_'+str(indir_sc)
+
+jobname = 'Tof'+ str(voltage) + '_' + str(voltage_case)+str(sc_flag)
 
 path_to_simulation = os.path.dirname(os.path.realpath(__file__)) # This directory
 
