@@ -13,7 +13,7 @@ folder = cwd.split('/')[-1] # Last part of cwd is folder name
 
 parameters = {}
 
-parameters['MADX_File']         = 'Create_PTC_Flat_file.madx'
+parameters['MADX_File']         = 'Create_PTC_flat_file.madx'
 parameters['lattice_start']     = 'BWSH65'
 parameters['tunex']             = '614'
 parameters['tuney']             = '635'
