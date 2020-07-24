@@ -85,26 +85,26 @@ print 'simulation_parameters::switches[\'Direct_Space_Charge\'] = ', switches['D
 if voltage == 70:
         if voltage_case == 0:   
                 parameters['rf_voltage'] = 0.070                
-                parameters['BLonD_file'] = '../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_70kV.npz'
+                parameters['BLonD_file'] = '../../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_70kV.npz'
         elif voltage_case == 1: 
                 parameters['rf_voltage'] = 0.070                 
-                parameters['BLonD_file'] = '../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_71kV.npz'
+                parameters['BLonD_file'] = '../../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_71kV.npz'
         elif voltage_case == 2: 
                 parameters['rf_voltage'] = 0.070         
-                parameters['BLonD_file'] = '../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_69kV.npz'
+                parameters['BLonD_file'] = '../../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_69kV.npz'
         else: 
                 print 'simulation_parameters::Error: Voltage case specified in simulation folder name not allowed'
                 exit(0)
         
 elif voltage == 85:
         if voltage_case == 0:   
-                parameters['BLonD_file'] = '../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_85kV.npz'
+                parameters['BLonD_file'] = '../../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_85kV.npz'
                 parameters['rf_voltage'] = 0.085              
         elif voltage_case == 1: 
-                parameters['BLonD_file'] = '../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_86kV.npz'
+                parameters['BLonD_file'] = '../../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_86kV.npz'
                 parameters['rf_voltage'] = 0.085    
         elif voltage_case == 2: 
-                parameters['BLonD_file'] = '../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_84kV.npz'
+                parameters['BLonD_file'] = '../../01_Generate_Longitudinal_Distribution/BLonD_Longitudinal_Distn_TOF_84kV.npz'
                 parameters['rf_voltage'] = 0.085    
         else: 
                 print 'simulation_parameters::Error: Voltage case specified in simulation folder name not allowed'
